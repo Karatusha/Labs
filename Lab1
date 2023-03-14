@@ -1,0 +1,66 @@
+//Створити клас «смайлик», такий, що:
+//а) його екземпляр містить розмір радіуса особи R і радіуса r очей.
+//b) його конструктор без параметра створює екземпляр зі значенням 0, а конструктор з параметрами створює екземпляр з відповідним значенням R і r.
+//c) його методи дозволяють отримувати і присвоювати значення R і r і обчислювати значення площі.
+//d) функція print_sqrt() виводить на екран значення її R, r площі(без площі очей).
+
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+class Smiley {
+private:
+    double R, r;
+
+public:
+    Smiley() : R(0), r(0) {
+        cout << "Default constructor called." << endl;
+    }
+
+    Smiley(double r1, double r2) : R(r1), r(r2) {
+        cout << "Parametrized constructor called." << endl;
+    }
+
+    ~Smiley() {
+        cout << "Destructor called." << endl;
+    }
+
+    void set_R(double r1) {
+        R = r1;
+    }
+
+    void set_r(double r2) {
+        r = r2;
+    }
+
+    double get_R() const {
+        return R;
+    }
+
+    double get_r() const {
+        return r;
+    }
+
+    double area() const {
+        return 3,14 * R * R - 2 * 3,14 * r * r;
+    }
+
+    void print_info() const {
+        cout << "R = " << R << ", r = " << r << ", area = " << area() << endl;
+    }
+};
+
+int main() {
+    Smiley s1;
+    s1.set_R(5);
+    s1.set_r(2);
+    s1.print_info();
+
+    Smiley* s2 = new Smiley(8, 3);
+    s2->print_info();
+
+    delete s2;
+
+    return 0;
+}
