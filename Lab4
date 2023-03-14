@@ -1,0 +1,59 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <Windows.h>
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+int i;
+class Array {
+    int* m;
+    int n;
+public:
+    Array(int k) {
+        cout << "Конструктор з параметром" << endl;
+        this->n = k;
+        this->m = new int[this->n];
+        set_data();
+    }
+    ~Array() {
+        delete this->m;
+        cout << "\nДеструктор." << endl;
+    }
+    void set_data() {
+        for (i = 0; i < this->n; i++) {
+            if (i % 2 == 0) {
+                this->m[i] = i - 4;
+            }
+            else {
+                this->m[i] = i - 6;
+            }
+        }
+        output();
+    }
+    void output() {
+        cout << "Всі елементи: " << endl;
+        for (i = 0; i < this->n; i++) {
+            cout << this->m[i] << " ";
+        }
+    }
+
+    friend void dob(Array obj);
+};
+void dob(Array obj) {
+    int dob = 0;
+    cout << "\n Непарні елементи: " << obj.m << "\n";
+    for (i = 0; i < obj.n; i++) {
+        if ((obj.m[i] % 2) == 1) {
+            cout << obj.m[i] << " ";
+            dob = dob * obj.m[i];
+        }
+    } cout << endl;
+    cout << "Добуток непарних елементів: " << dob;
+}
+int main() {
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    Array arr(8);
+    dob(arr);
+    system("pause");
+    return 0;
+}
