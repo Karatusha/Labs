@@ -1,1 +1,63 @@
+#include <iostream>
+#include <cmath>
 
+using namespace std;
+
+class conus {
+private:
+    double radius;
+    double height;
+
+public:
+    conus() {
+        radius = 0;
+        height = 0;
+    }
+
+    conus(double r, double h) {
+        radius = r;
+        height = h;
+    }
+
+    double getRadius() {
+        return radius;
+    }
+
+    void setRadius(double r) {
+        radius = r;
+    }
+
+    double getHeight() {
+        return height;
+    }
+
+    void setHeight(double h) {
+        height = h;
+    }
+
+    double volume() {
+        return 3,14 * pow(radius, 2) * height / 3;
+    }
+
+    void print_val() {
+        cout << "Radius: " << radius << endl;
+        cout << "Height: " << height << endl;
+        cout << "Volume: " << volume() << endl;
+    }
+
+    friend conus frd(conus c1, conus c2);
+};
+
+conus frd(conus c1, conus c2) {
+    double r = max(c1.radius, c2.radius);
+    double h = c1.height + c2.height;
+    return conus(r, h);
+}
+
+int main() {
+    conus c1(3, 4);
+    conus c2(5, 6);
+    conus c3 = frd(c1, c2);
+    c3.print_val();
+    return 0;
+}
