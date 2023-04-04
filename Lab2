@@ -1,5 +1,7 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cmath>
+#include <Windows.h>
 
 using namespace std;
 
@@ -40,9 +42,9 @@ public:
     }
 
     void print_val() {
-        cout << "Radius: " << radius << endl;
-        cout << "Height: " << height << endl;
-        cout << "Volume: " << volume() << endl;
+        cout << "Радіус: " << radius << endl;
+        cout << "Висота: " << height << endl;
+        cout << "Об'єм: " << volume() << endl;
     }
 
     friend conus frd(conus c1, conus c2);
@@ -55,6 +57,8 @@ conus frd(conus c1, conus c2) {
 }
 
 int main() {
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
     conus c1(3, 4);
     conus c2(5, 6);
     conus c3 = frd(c1, c2);
