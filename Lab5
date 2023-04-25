@@ -1,1 +1,83 @@
+#include <iostream>
+#include <cmath>
 
+using namespace std;
+
+class Smiley {
+private:
+    double R; // радіус обличчя
+    double r; // радіус очей
+
+public:
+    // конструктори
+    Smiley() {
+        R = 0;
+        r = 0;
+    }
+
+    Smiley(double Rval, double rval) {
+        R = Rval;
+        r = rval;
+    }
+
+    // методи
+    void setR(double Rval) {
+        R = Rval;
+    }
+
+    void setr(double rval) {
+        r = rval;
+    }
+
+    double getR() const {
+        return R;
+    }
+
+    double getr() const {
+        return r;
+    }
+
+    double getArea() const {
+        return 3,14 * pow(R, 2);
+    }
+
+    // перевантаження операторів
+    friend ostream& operator<<(ostream& os, const Smiley& s) {
+        os << "R = " << s.R << ", r = " << s.r << ", area = " << s.getArea();
+        return os;
+    }
+
+    Smiley operator+(const Smiley& s) const {
+        return Smiley(R + s.R, r + s.r);
+    }
+
+    void operator++() {
+        ++R;
+        ++r;
+    }
+
+    Smiley operator++(int) {
+        Smiley temp = *this;
+        ++(*this);
+        return temp;
+    }
+};
+
+int main() {
+    Smiley s1(5, 2);
+    Smiley s2(10, 4);
+
+    cout << "s1: " << s1 << endl; //Значення R та r, та площі
+    cout << "s2: " << s2 << endl;
+
+    Smiley s3 = s1 + s2;
+    cout << "s3 = s1 + s2: " << s3 << endl;
+
+    ++s1;
+    cout << "++s1: " << s1 << endl;
+
+    s2++;
+    cout << "s2++: " << s2 << endl;
+
+    return 0;
+}
