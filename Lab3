@@ -1,1 +1,69 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <algorithm>
 
+class Student {
+public:
+    std::string surname;
+    std::string name;
+    int mathGrade;
+    int physicsGrade;
+    int informaticsGrade;
+
+    Student(const std::string& surname, const std::string& name, int mathGrade, int physicsGrade, int informaticsGrade)
+        : surname(surname), name(name), mathGrade(mathGrade), physicsGrade(physicsGrade), informaticsGrade(informaticsGrade) {}
+
+    void printInfo() const {
+        std::cout << "Прізвище: " << surname << ", Ім'я: " << name << std::endl;
+        std::cout << "Оцінка з математики: " << mathGrade << ", Оцінка з фізики: " << physicsGrade << ", Оцінка з інформатики: " << informaticsGrade << std::endl;
+    }
+
+    float getAverageGrade() const {
+        return static_cast<float>(mathGrade + physicsGrade + informaticsGrade) / 3.0;
+    }
+
+    bool hasAverageGradeGreaterThan(float threshold) const {
+        return getAverageGrade() > threshold;
+    }
+};
+
+int main() {
+    std::ifstream inFile("data.txt");
+    if (!inFile.is_open()) {
+        std::cout << "Не вдалося відкрити файл." << std::endl;
+        return 1;
+    }
+
+    std::vector<Student> students;
+    std::string surname, name;
+    int mathGrade, physicsGrade, informaticsGrade;
+
+    while (inFile >> surname >> name >> mathGrade >> physicsGrade >> informaticsGrade) {
+        students.emplace_back(surname, name, mathGrade, physicsGrade, informaticsGrade);
+    }
+
+    inFile.close();
+
+    // Отримати ім'я студента з даних, введених користувачем
+    std::string searchName;
+    std::cout << "Введіть ім'я: ";
+    std::cin >> searchName;
+
+    // Пошук студента за іменем та друк інформації про нього
+    bool found = false;
+    for (const Student& student : students) {
+        if (student.name == searchName) {
+            student.printInfo();
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        std::cout << "Студента не знайдено: " << searchName << std::endl;
+    }
+
+    return 0;
+}
