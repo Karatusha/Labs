@@ -1,0 +1,65 @@
+#include <iostream>
+#include <string>
+
+class Number {
+public:
+    virtual void print() const = 0; 
+};
+
+class UnsignedInt : public Number {
+private:
+    unsigned int value;
+public:
+    UnsignedInt(unsigned int val) : value(val) {}
+    void print() const override {
+        std::cout << "Unsigned Int: " << value << std::endl;
+    }
+};
+
+class Binary : public Number {
+private:
+    std::string value;
+public:
+    Binary(std::string val) : value(val) {}
+    void print() const override {
+        std::cout << "Binary: " << value << std::endl;
+    }
+};
+
+class Decimal : public Number {
+private:
+    int value;
+public:
+    Decimal(int val) : value(val) {}
+    void print() const override {
+        std::cout << "Decimal: " << value << std::endl;
+    }
+};
+
+class Hexadecimal : public Number {
+private:
+    std::string value;
+public:
+    Hexadecimal(std::string val) : value(val) {}
+    void print() const override {
+        std::cout << "Hexadecimal: " << value << std::endl;
+    }
+};
+
+int main() {
+    Number* arr[4];
+    arr[0] = new UnsignedInt(123);
+    arr[1] = new Binary("1010");
+    arr[2] = new Decimal(-321);
+    arr[3] = new Hexadecimal("1A2B");
+
+    for (int i = 0; i < 4; i++) {
+        arr[i]->print();
+    }
+
+    for (int i = 0; i < 4; i++) {
+        delete arr[i];
+    }
+
+    return 0;
+}
