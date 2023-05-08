@@ -1,0 +1,80 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Test {
+protected:
+    string name;
+    int score;
+public:
+    Test(string n = "N/A", int s = 0) : name(n), score(s) {}
+    virtual ~Test() {}
+    virtual void print() {
+        cout << "Test: " << name << ", score: " << score << endl;
+    }
+};
+
+class Exam : public Test {
+protected:
+    string subject;
+public:
+    Exam(string n = "N/A", int s = 0, string sub = "N/A") : Test(n, s), subject(sub) {}
+    virtual ~Exam() {}
+    virtual void print() {
+        cout << "Exam: " << name << ", subject: " << subject << ", score: " << score << endl;
+    }
+};
+
+class FinalExam : public Exam {
+public:
+    FinalExam(string n = "N/A", int s = 0, string sub = "N/A") : Exam(n, s, sub) {}
+    virtual ~FinalExam() {}
+    virtual void print() {
+        cout << "Final Exam: " << name << ", subject: " << subject << ", score: " << score << endl;
+    }
+};
+
+class EntranceExam : public Exam {
+public:
+    EntranceExam(string n = "N/A", int s = 0, string sub = "N/A") : Exam(n, s, sub) {}
+    virtual ~EntranceExam() {}
+    virtual void print() {
+        cout << "Entrance Exam: " << name << ", subject: " << subject << ", score: " << score << endl;
+    }
+};
+
+class Trial : public Test {
+protected:
+    string purpose;
+public:
+    Trial(string n = "N/A", int s = 0, string p = "N/A") : Test(n, s), purpose(p) {}
+    virtual ~Trial() {}
+    virtual void print() {
+        cout << "Trial: " << name << ", purpose: " << purpose << ", score: " << score << endl;
+    }
+};
+
+int main() {
+    Test* t = new Test("Sample Test", 80);
+    t->print();
+    delete t;
+
+    Exam* e = new Exam("Sample Exam", 90, "Math");
+    e->print();
+    delete e;
+
+    FinalExam* fe = new FinalExam("Sample Final Exam", 95, "History");
+    fe->print();
+    delete fe;
+
+    EntranceExam* ee = new EntranceExam("Sample Entrance Exam", 85, "Science");
+    ee->print();
+    delete ee;
+
+    Trial* tr = new Trial("Sample Trial", 70, "Research");
+    tr->print();
+    delete tr;
+
+    return 0;
+}
